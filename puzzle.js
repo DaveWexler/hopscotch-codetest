@@ -27,6 +27,11 @@ function set_empty_coords() {
   empty_coords = document.getElementsByClassName('empty')[0].id.split("-")
 }
 
+function get_empty_cell() {
+  set_empty_coords()
+  return document.getElementsByClassName('empty')[0]
+}
+
 function get_coords(cell) {
   return cell.id.split("-")
 }
@@ -47,11 +52,26 @@ function move_horizontal(cell, spaces) {
 }
 
 function move_vertical(cell, spaces) {
-  debugger
   if (spaces === 0) {
-    cell.innerHTML("")
-    cell.className("empty")
-  } else {
-    
+    cell.innerHTML = ""
+    cell.className = "empty"
+  } else if (spaces < 0) {
+    var empty_cell = get_empty_cell()
+    var adjacent = document.getElementById(get_coords(cell)[0] + "-" + (parseInt(empty_coords[1]) - 1))
+    var new_val = adjacent.innerHTML
+    empty_cell.innerHTML = new_val
+    empty_cell.className = ""
+    adjacent.innerHTML = ""
+    adjacent.className = "empty"
+    move_vertical(cell, spaces+1)
+  } else if (spaces > 0) {
+    var empty_cell = get_empty_cell()
+    var adjacent = document.getElementById(get_coords(cell)[0] + "-" + (parseInt(empty_coords[1]) + 1))
+    var new_val = adjacent.innerHTML
+    empty_cell.innerHTML = new_val
+    empty_cell.className = ""
+    adjacent.innerHTML = ""
+    adjacent.className = "empty"
+    move_vertical(cell, spaces-1)
   }
 }
