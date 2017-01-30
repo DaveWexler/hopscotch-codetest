@@ -6,7 +6,6 @@
 
 var cells = document.getElementsByTagName('td')
 var empty_coords
-var coords
 
 for (var i = 0; i < cells.length; i++) {
   cells[i].addEventListener('click', function(){
